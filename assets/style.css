@@ -1,0 +1,6 @@
+/* added basic to css sheet */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
