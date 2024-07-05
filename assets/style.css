@@ -4,3 +4,7 @@
 *::after {
     box-sizing: border-box;
 }
+
+.search-container {
+    width: 20%;
+}
