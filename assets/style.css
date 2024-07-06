@@ -13,3 +13,8 @@
 .list-group .list-group-item li {
     width: 30%;
 }
+
+#weather-list {
+    max-width: 600px;
+    margin: 0 auto;
+}
