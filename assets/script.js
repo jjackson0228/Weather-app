@@ -22,50 +22,57 @@ document.addEventListener("DOMContentLoaded", function () {
         };
       });
   }
-});
-// Function to get weather data by coordinates
-function getWeather(lat, lon) {
-  return fetch(
-    `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`
-  ).then((response) => response.json());
-}
-// Function to display weather data
-function displayWeather(data) {
-  weatherList.innerHTML = "";
-  const forecasts = data.list.slice(0, 5); // Get the first 5 forecast items
 
-  forecasts.forEach((forecast) => {
-    const listItem = document.createElement("li");
-    listItem.className = "list-group-item mb-2 p-3 border-dark";
+  // Function to get weather data by coordinates
+  function getWeather(lat, lon) {
+    return fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`
+    ).then((response) => response.json());
+  }
+  // Function to display weather data
+  function displayWeather(data) {
+    weatherList.innerHTML = "";
+    const forecasts = data.list.slice(0, 5); // Get the first 5 forecast items
 
-    const date = new Date(forecast.dt * 1000);
-    const dateString = date.toLocaleDateString();
-    const timeString = date.toLocaleTimeString();
-    const temp = forecast.main.temp;
-    const description = forecast.weather[0].description;
+    forecasts.forEach((forecast) => {
+      const listItem = document.createElement("li");
+      listItem.className = "list-group-item mb-2 p-3 border-dark";
 
-    listItem.innerHTML = `
+      const date = new Date(forecast.dt * 1000);
+      const dateString = date.toLocaleDateString();
+      const timeString = date.toLocaleTimeString();
+      const temp = forecast.main.temp;
+      const description = forecast.weather[0].description;
+
+      listItem.innerHTML = `
             <h5>${dateString} ${timeString}</h5>
             <p>Temperature: ${temp} °F</p>
             <p>Condition: ${description}</p>
         `;
 
-    weatherList.appendChild(listItem);
-  });
-}
-// Function to handle form submission
-function handleSearch(event) {
-  event.preventDefault();
-  const city = cityInput.value.trim();
-  if (city === "") return;
+      weatherList.appendChild(listItem);
+    });
+  }
+  // Function to handle form submission
+  function handleSearch(event) {
+    event.preventDefault();
+    const city = cityInput.value.trim();
+    if (city === "") return;
 
-  // Save city to localStorage
-  localStorage.setItem("lastSearchedCity", city);
+    // Save city to localStorage
+    localStorage.setItem("lastSearchedCity", city);
 
-  getCoordinates(city)
-    .then((coords) => getWeather(coords.lat, coords.lon))
-    .then(displayWeather)
-    .catch((error) => console.error("Error fetching weather data:", error));
-}
-// Add event listener to the form
-searchForm.addEventListener("submit", handleSearch);
+    getCoordinates(city)
+      .then((coords) => getWeather(coords.lat, coords.lon))
+      .then(displayWeather)
+      .catch((error) => console.error("Error fetching weather data:", error));
+  }
+  // Add event listener to the form
+  searchForm.addEventListener("submit", handleSearch);
+  // Load last searched city from localStorage
+  const lastSearchedCity = localStorage.getItem("lastSearchedCity");
+  if (lastSearchedCity) {
+    cityInput.value = lastSearchedCity;
+    handleSearch(new Event("submit"));
+  }
+});
