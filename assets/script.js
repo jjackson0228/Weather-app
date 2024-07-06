@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const lon = "-77.353620";
   // api key fetch below
   fetch(
-    `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
+    `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`
   )
     //   then statements giving fucntions of the document and datalist
     .then((response) => response.json())
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         listItem.innerHTML = `
                     <h5>${dateString} ${timeString}</h5>
-                    <p>Temperature: ${temp} °C</p>
+                    <p>Temperature: ${temp} °F</p>
                     <p>Condition: ${description}</p>
                 `;
         // append the list item of the city
