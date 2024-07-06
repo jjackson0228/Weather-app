@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const apiKey = "YOUR_API_KEY";
+  // added api key below
+  const apiKey = "c9c176ed5db5d1a1b6feca11f17d9684";
   const lat = "YOUR_LATITUDE";
   const lon = "YOUR_LONGITUDE";
   // api key fetch below
