@@ -29,3 +29,27 @@ function getWeather(lat, lon) {
     `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`
   ).then((response) => response.json());
 }
+// Function to display weather data
+function displayWeather(data) {
+  weatherList.innerHTML = "";
+  const forecasts = data.list.slice(0, 5); // Get the first 5 forecast items
+
+  forecasts.forEach((forecast) => {
+    const listItem = document.createElement("li");
+    listItem.className = "list-group-item mb-2 p-3 border-dark";
+
+    const date = new Date(forecast.dt * 1000);
+    const dateString = date.toLocaleDateString();
+    const timeString = date.toLocaleTimeString();
+    const temp = forecast.main.temp;
+    const description = forecast.weather[0].description;
+
+    listItem.innerHTML = `
+            <h5>${dateString} ${timeString}</h5>
+            <p>Temperature: ${temp} °F</p>
+            <p>Condition: ${description}</p>
+        `;
+
+    weatherList.appendChild(listItem);
+  });
+}
