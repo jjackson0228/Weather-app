@@ -53,3 +53,17 @@ function displayWeather(data) {
     weatherList.appendChild(listItem);
   });
 }
+// Function to handle form submission
+function handleSearch(event) {
+  event.preventDefault();
+  const city = cityInput.value.trim();
+  if (city === "") return;
+
+  // Save city to localStorage
+  localStorage.setItem("lastSearchedCity", city);
+
+  getCoordinates(city)
+    .then((coords) => getWeather(coords.lat, coords.lon))
+    .then(displayWeather)
+    .catch((error) => console.error("Error fetching weather data:", error));
+}
