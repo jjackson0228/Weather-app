@@ -67,3 +67,5 @@ function handleSearch(event) {
     .then(displayWeather)
     .catch((error) => console.error("Error fetching weather data:", error));
 }
+// Add event listener to the form
+searchForm.addEventListener("submit", handleSearch);
