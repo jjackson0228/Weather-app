@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   fetch(
     `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`
   )
-    //   then statements giving fucntions of the document and datalist
+    //   then statements giving functions of the document and datalist
     .then((response) => response.json())
     .then((data) => {
       const weatherList = document.getElementById("weather-list");
