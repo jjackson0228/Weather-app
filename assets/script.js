@@ -1,8 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
   // added api key below
   const apiKey = "c9c176ed5db5d1a1b6feca11f17d9684";
-  const lat = "YOUR_LATITUDE";
-  const lon = "YOUR_LONGITUDE";
+  //   added lat and lon coordinates
+  const lat = "35.063590";
+  const lon = "-77.353620";
   // api key fetch below
   fetch(
     `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
