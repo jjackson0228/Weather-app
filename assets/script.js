@@ -35,22 +35,50 @@ function displayCurrentWeather(data) {
 }
 // dispaly forecast using data.list and some variables including creating container with data in it and changed celsius to farenheight and changed wind speed to calculate in mph
 function displayForecast(data) {
-  const forecastHtml = data.list
-    .slice(0, 5)
+  // Filter the list to get one forecast per day (e.g., 12:00 PM)
+  const dailyData = [];
+  const seenDates = new Set();
+
+  for (const item of data.list) {
+    const date = new Date(item.dt * 1000);
+    const day = date.getDate();
+
+    if (!seenDates.has(day) && date.getHours() === 12) {
+      dailyData.push(item);
+      seenDates.add(day);
+    }
+  }
+  // If fewer than 5 days, fill in missing days with the next available entry fixed it to show future weather updates
+  if (dailyData.length < 5) {
+    const additionalData = data.list.filter(
+      (item) => !seenDates.has(new Date(item.dt * 1000).getDate())
+    );
+    for (const item of additionalData) {
+      const date = new Date(item.dt * 1000);
+      const day = date.getDate();
+      if (!seenDates.has(day)) {
+        dailyData.push(item);
+        seenDates.add(day);
+        if (dailyData.length >= 5) break;
+      }
+    }
+  }
+
+  const forecastHtml = dailyData
     .map((item) => {
       const date = new Date(item.dt * 1000).toLocaleDateString();
       const iconUrl = `https://openweathermap.org/img/wn/${item.weather[0].icon}.png`;
       const temperature = item.main.temp;
       const humidity = item.main.humidity;
       const windSpeed = item.wind.speed;
-      // changed
+
       return `
       <div class="col-md-2">
         <p>${date}</p>
         <img src="${iconUrl}" alt="${item.weather[0].description}">
         <p>Temp: ${temperature} °F</p>
         <p>Humidity: ${humidity} %</p>
-        <p>Wind: ${windSpeed} mph</p>  
+        <p>Wind: ${windSpeed} mph</p>
       </div>
     `;
     })
@@ -61,6 +89,7 @@ function displayForecast(data) {
     <div class="row">${forecastHtml}</div>
   `);
 }
+
 // added function to add search history to local storage
 function addToSearchHistory(city) {
   let searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
