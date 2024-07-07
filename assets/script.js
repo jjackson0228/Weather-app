@@ -1,8 +1,8 @@
 const apiKey = "c9c176ed5db5d1a1b6feca11f17d9684";
 // current weather conditions based on city using api
 async function getWeatherData(city) {
-  const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-  const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+  const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
+  const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=imperial`;
 
   // fetching current data and forcast
   const [currentResponse, forecastResponse] = await Promise.all([
@@ -15,7 +15,7 @@ async function getWeatherData(city) {
   // returning data of current and forcast
   return { currentData, forecastData };
 }
-// displaying weather with icon and temp humidity and wind speed
+// displaying weather with icon and temp humidity and wind speed changed wind speed to show in mph instead of ms and changed temp to display farenheight not celcius
 function displayCurrentWeather(data) {
   const { name, dt, weather, main, wind } = data;
   const date = new Date(dt * 1000).toLocaleDateString();
@@ -28,12 +28,12 @@ function displayCurrentWeather(data) {
     <h2>Current Weather in ${name}</h2>
     <p>${date}</p>
     <img src="${iconUrl}" alt="${weather[0].description}">
-    <p>Temperature: ${temperature} °C</p>
+    <p>Temperature: ${temperature} °F</p>
     <p>Humidity: ${humidity} %</p>
-    <p>Wind Speed: ${windSpeed} m/s</p>
+    <p>Wind Speed: ${windSpeed} mph</p>
   `);
 }
-// dispaly forecast using data.list and some variabels including creating container with data in it
+// dispaly forecast using data.list and some variables including creating container with data in it and changed celsius to farenheight and changed wind speed to calculate in mph
 function displayForecast(data) {
   const forecastHtml = data.list
     .slice(0, 5)
@@ -43,14 +43,14 @@ function displayForecast(data) {
       const temperature = item.main.temp;
       const humidity = item.main.humidity;
       const windSpeed = item.wind.speed;
-
+      // changed
       return `
       <div class="col-md-2">
         <p>${date}</p>
         <img src="${iconUrl}" alt="${item.weather[0].description}">
-        <p>Temp: ${temperature} °C</p>
+        <p>Temp: ${temperature} °F</p>
         <p>Humidity: ${humidity} %</p>
-        <p>Wind: ${windSpeed} m/s</p>
+        <p>Wind: ${windSpeed} mph</p>  
       </div>
     `;
     })
