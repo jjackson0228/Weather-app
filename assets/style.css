@@ -11,7 +11,7 @@
 }
 
 p::after {
-    border: 1px blue;
+    /* border: 1px blue; */
 }
 
 .list-group .list-group-item li {

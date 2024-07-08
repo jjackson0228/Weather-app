@@ -71,9 +71,9 @@ function displayForecast(data) {
       const temperature = item.main.temp;
       const humidity = item.main.humidity;
       const windSpeed = item.wind.speed;
-
+      // added border and border-primary to seperate each forecast
       return `
-      <div class="col-md-2">
+      <div class="col-lg-2 px-2 border border-secondary">
         <p>${date}</p>
         <img src="${iconUrl}" alt="${item.weather[0].description}">
         <p>Temp: ${temperature} °F</p>
@@ -86,7 +86,7 @@ function displayForecast(data) {
 
   $("#forecast").html(`
     <h2>5-Day Forecast</h2>
-    <div class="row">${forecastHtml}</div>
+    <div class="row px-2">${forecastHtml}</div>
   `);
 }
 
