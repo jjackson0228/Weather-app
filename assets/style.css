@@ -10,9 +10,9 @@
 
 }
 
-p::after {
-    /* border: 1px blue; */
-}
+/* p::after { */
+/* border: 1px blue; */
+/* } */
 
 .list-group .list-group-item li {
     width: 30%;
