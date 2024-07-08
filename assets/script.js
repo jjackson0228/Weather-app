@@ -33,7 +33,7 @@ function displayCurrentWeather(data) {
     <p>Wind Speed: ${windSpeed} mph</p>
   `);
 }
-// dispaly forecast using data.list and some variables including creating container with data in it and changed celsius to farenheight and changed wind speed to calculate in mph
+// display forecast using data.list and some variables including creating container with data in it and changed celsius to farenheight and changed wind speed to calculate in mph
 function displayForecast(data) {
   // Filter the list to get one forecast per day (e.g., 12:00 PM)
   const dailyData = [];
@@ -63,7 +63,7 @@ function displayForecast(data) {
       }
     }
   }
-
+  //  changed the farenheit instead of celsius and mph instead of m/s
   const forecastHtml = dailyData
     .map((item) => {
       const date = new Date(item.dt * 1000).toLocaleDateString();
