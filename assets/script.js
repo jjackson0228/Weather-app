@@ -23,6 +23,7 @@ function displayCurrentWeather(data) {
   const temperature = main.temp;
   const humidity = main.humidity;
   const windSpeed = wind.speed;
+  $("#current-weather").addClass("mt-4 border border-primary");
   // creating container  to show data
   $("#current-weather").html(`
     <h2>Current Weather in ${name}</h2>
