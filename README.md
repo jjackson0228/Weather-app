@@ -14,8 +14,11 @@ Create a weather application that could retrieve data from the open weather api 
 
 Link to github repo :
 
-- Link to pages application https:
--
+- https://github.com/jjackson0228/Weather-app
+
+Link to pages application https:
+
+- https://jjackson0228.github.io/Weather-app/
 
 #### How to use App
 
